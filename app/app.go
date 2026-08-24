@@ -5,7 +5,6 @@ import (
 	"easy_pwd/pkg/db"
 	"easy_pwd/pkg/log"
 	"easy_pwd/pkg/utils"
-	"fmt"
 	"runtime"
 )
 
@@ -18,8 +17,8 @@ func Run() {
 			buf := make([]byte, 4096)
 			n := runtime.Stack(buf, false) // false: 只获取当前 goroutine 的堆栈
 			stackTrace := string(buf[:n])
-			fmt.Println(stackTrace)
-			//log.Instance().Error("运行失败", log.SetValue("error", r), log.SetValue("stackTrace", stackTrace))
+			//fmt.Println(stackTrace)
+			log.Instance().Error("运行失败", log.SetValue("error", r), log.SetValue("stackTrace", stackTrace))
 		}
 		// 关闭数据库连接
 		db.CloseDB()

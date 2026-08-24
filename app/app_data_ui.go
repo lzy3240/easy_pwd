@@ -322,7 +322,7 @@ func createEditSuperPwdButton(w fyne.Window) *widget.Button {
 }
 
 func createForgetSuperPwdButton(w fyne.Window) *widget.Button {
-	return widget.NewButton("重置超级密码", func() {
+	return widget.NewButton("超级密码重置", func() {
 		recoverQuestion1 := widget.NewEntry()
 		recoverAnswer1 := widget.NewEntry()
 		recoverAnswer1.SetPlaceHolder("请输入答案")
@@ -462,7 +462,7 @@ func createForgetSuperPwdButton(w fyne.Window) *widget.Button {
 }
 
 func createStatusSuperPwdButton(w fyne.Window) *widget.Button {
-	return widget.NewButton("超级密码状态", func() {
+	return widget.NewButton("超级密码启停", func() {
 		// 创建表单字段
 		statusEntry := widget.NewRadioGroup([]string{"是", "否"}, nil)
 
@@ -528,7 +528,7 @@ func createStatusSuperPwdButton(w fyne.Window) *widget.Button {
 }
 
 func createClearDataButton(w fyne.Window) *widget.Button {
-	return widget.NewButton("密码文件清空", func() {
+	return widget.NewButton("密码数据清空", func() {
 		// 清空密码文件
 		dialog.ShowConfirm("清空数据", "确定要清空数据吗？", func(confirmed bool) {
 			if confirmed {

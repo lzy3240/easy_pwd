@@ -121,7 +121,7 @@ func createDataContainer(w fyne.Window, a fyne.App) *fyne.Container {
 		container.NewVBox(
 			widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{}),
 			widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{}),
-			widget.NewLabelWithStyle("欢迎使用", fyne.TextAlignCenter, fyne.TextStyle{
+			widget.NewLabelWithStyle("数据管理", fyne.TextAlignCenter, fyne.TextStyle{
 				Bold:      true,
 				Underline: true,
 			}),
@@ -323,15 +323,15 @@ func createEditSuperPwdButton(w fyne.Window) *widget.Button {
 
 func createForgetSuperPwdButton(w fyne.Window) *widget.Button {
 	return widget.NewButton("超级密码重置", func() {
-		recoverQuestion1 := widget.NewEntry()
+		recoverQuestion1 := widget.NewLabelWithStyle("", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
 		recoverAnswer1 := widget.NewEntry()
 		recoverAnswer1.SetPlaceHolder("请输入答案")
 
-		recoverQuestion2 := widget.NewEntry()
+		recoverQuestion2 := widget.NewLabelWithStyle("", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
 		recoverAnswer2 := widget.NewEntry()
 		recoverAnswer2.SetPlaceHolder("请输入答案")
 
-		recoverQuestion3 := widget.NewEntry()
+		recoverQuestion3 := widget.NewLabelWithStyle("", fyne.TextAlignLeading, fyne.TextStyle{Bold: true})
 		recoverAnswer3 := widget.NewEntry()
 		recoverAnswer3.SetPlaceHolder("请输入答案")
 
@@ -440,6 +440,7 @@ func createForgetSuperPwdButton(w fyne.Window) *widget.Button {
 			dialog.ShowError(errors.New("查询问题1失败"+err.Error()), w)
 			return
 		}
+
 		recoverQuestion1.SetText(question1.Value)
 		var question2 global.Setting
 		err = db.Instance().Model(&global.Setting{}).First(&question2, "key = ?", "RecoverQuestion2").Error

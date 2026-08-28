@@ -955,19 +955,25 @@ func superPwdSetCheck(w fyne.Window) {
 				recoverAnswer3 := recoverAnswer3Entry.Text
 
 				if superPwd == "" || repeatPwd == "" || recoverQuestion1 == "" || recoverAnswer1 == "" || recoverQuestion2 == "" || recoverAnswer2 == "" || recoverQuestion3 == "" || recoverAnswer3 == "" {
-					dialog.ShowError(errors.New("请填写完整的超级密码信息"), w)
+					d := dialog.NewInformation("提示", "请填写完整的超级密码信息", w)
+					d.Show()
+					//dialog.ShowError(errors.New("请填写完整的超级密码信息"), w)
 					// 延迟关闭对话并重载超级密码设置对话框
-					time.AfterFunc(2000*time.Millisecond, func() {
+					time.AfterFunc(1000*time.Millisecond, func() {
 						fyne.Do(func() {
+							d.Hide()
 							superPwdSetCheck(w)
 						})
 					})
 				} else {
 					if superPwd != repeatPwd {
-						dialog.ShowError(errors.New("两次输入的超级密码不一致"), w)
+						d := dialog.NewInformation("提示", "两次输入的超级密码不一致", w)
+						d.Show()
+
 						// 延迟关闭对话并重载超级密码设置对话框
-						time.AfterFunc(2000*time.Millisecond, func() {
+						time.AfterFunc(1000*time.Millisecond, func() {
 							fyne.Do(func() {
+								d.Hide()
 								superPwdSetCheck(w)
 							})
 						})
@@ -998,10 +1004,13 @@ func superPwdSetCheck(w fyne.Window) {
 
 						// 显示成功对话框
 						fyne.Do(func() {
-							dialog.ShowInformation("提示", "超级密码设置成功", w)
+							d := dialog.NewInformation("提示", "超级密码设置成功", w)
+							d.Show()
+
 							// 延迟关闭对话并打开验证状态检查对话框
-							time.AfterFunc(2000*time.Millisecond, func() {
+							time.AfterFunc(1000*time.Millisecond, func() {
 								fyne.Do(func() {
+									d.Hide()
 									superPwdVerifyCheck(w)
 								})
 							})
@@ -1009,10 +1018,13 @@ func superPwdSetCheck(w fyne.Window) {
 					}
 				}
 			} else {
-				dialog.ShowError(errors.New("第一次使用请进行超级密码设置"), w)
+				d := dialog.NewInformation("提示", "第一次使用请进行超级密码设置", w)
+				d.Show()
+
 				// 延迟关闭对话并重载超级密码设置对话框
-				time.AfterFunc(2000*time.Millisecond, func() {
+				time.AfterFunc(1000*time.Millisecond, func() {
 					fyne.Do(func() {
+						d.Hide()
 						superPwdSetCheck(w)
 					})
 				})
@@ -1042,26 +1054,34 @@ func superPwdVerifyCheck(w fyne.Window) {
 			if confirm {
 				superPwd := superPwdEntry.Text
 				if superPwd == "" {
-					dialog.ShowError(errors.New("请输入超级密码"), w)
+					d := dialog.NewInformation("提示", "请输入超级密码", w)
+					d.Show()
+
 					// 延迟关闭对话并重载打开状态检查对话框
-					time.AfterFunc(2000*time.Millisecond, func() {
+					time.AfterFunc(1000*time.Millisecond, func() {
 						fyne.Do(func() {
+							d.Hide()
 							superPwdVerifyCheck(w)
 						})
 					})
 				} else {
 					superPwdDB, _ := utils.RSADecrypt(privateKey, getSetting("SuperPWD"))
 					if superPwd == superPwdDB {
-						// 显示成功对话框
-						fyne.Do(func() {
-							dialog.ShowInformation("提示", "超级密码验证成功", w)
-						})
 						currentCheckStatus = true
+						// 显示成功对话框
+						d := dialog.NewInformation("提示", "超级密码验证成功", w)
+						d.Show()
+						time.AfterFunc(1000*time.Millisecond, func() {
+							d.Hide()
+						})
 					} else {
-						dialog.ShowError(errors.New("超级密码验证失败"), w)
+						d := dialog.NewInformation("提示", "超级密码验证失败", w)
+						d.Show()
+
 						// 延迟关闭对话并重载打开状态检查对话框
-						time.AfterFunc(2000*time.Millisecond, func() {
+						time.AfterFunc(1000*time.Millisecond, func() {
 							fyne.Do(func() {
+								d.Hide()
 								superPwdVerifyCheck(w)
 							})
 						})
@@ -1069,10 +1089,13 @@ func superPwdVerifyCheck(w fyne.Window) {
 				}
 			} else {
 				// 点击取消时
-				dialog.ShowError(errors.New("请验证超级密码"), w)
+				d := dialog.NewInformation("提示", "请验证超级密码", w)
+				d.Show()
+
 				// 延迟关闭对话并重载打开状态检查对话框
-				time.AfterFunc(2000*time.Millisecond, func() {
+				time.AfterFunc(1000*time.Millisecond, func() {
 					fyne.Do(func() {
+						d.Hide()
 						superPwdVerifyCheck(w)
 					})
 				})
